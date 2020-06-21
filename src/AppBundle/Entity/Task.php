@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -34,6 +35,11 @@ class Task
      * @Assert\NotBlank(message="Vous devez saisir du contenu.")
      */
     private $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tasks")
+     */
+    private $user;
 
     /**
      * @ORM\Column(type="boolean")
@@ -81,6 +87,18 @@ class Task
         $this->content = $content;
     }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
     public function isDone()
     {
         return $this->isDone;
@@ -89,5 +107,29 @@ class Task
     public function toggle($flag)
     {
         $this->isDone = $flag;
+    }
+
+    /**
+     * Set isDone.
+     *
+     * @param bool $isDone
+     *
+     * @return Task
+     */
+    public function setIsDone($isDone)
+    {
+        $this->isDone = $isDone;
+
+        return $this;
+    }
+
+    /**
+     * Get isDone.
+     *
+     * @return bool
+     */
+    public function getIsDone()
+    {
+        return $this->isDone;
     }
 }
