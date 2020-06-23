@@ -38,6 +38,12 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @ORM\Column(type="json")
+     * @Assert\Choice(callback="getAuthorizedRoles")
+     */
+    private $roles = [];
+
+    /**
      * @ORM\Column(type="string", length=60, unique=true)
      * @Assert\NotBlank(message="Vous devez saisir une adresse email.")
      * @Assert\Email(message="Le format de l'adresse n'est pas correcte.")
@@ -79,6 +85,21 @@ class User implements UserInterface
         $this->password = $password;
     }
 
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function getEmail()
     {
         return $this->email;
@@ -87,11 +108,6 @@ class User implements UserInterface
     public function setEmail($email)
     {
         $this->email = $email;
-    }
-
-    public function getRoles()
-    {
-        return array('ROLE_USER');
     }
 
     public function eraseCredentials()
@@ -131,5 +147,10 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public static function getAuthorizedRoles()
+    {
+        return [['ROLE_USER'], ['ROLE_ADMIN']];
     }
 }
