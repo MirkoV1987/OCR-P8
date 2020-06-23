@@ -1,0 +1,51 @@
+imports:
+    - { resource: config.yml }
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing_dev.yml"
+        strict_requirements: true
+    profiler: { only_exceptions: false }
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+
+monolog:
+    handlers:
+        main:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+            channels: [!event]
+        console:
+            type:   console
+            channels: [!event, !doctrine]
+        # uncomment to get logging in your browser
+        # you may have to allow bigger header sizes in your Web server configuration
+        #firephp:
+        #    type:   firephp
+        #    level:  info
+        #chromephp:
+        #    type:   chromephp
+        #    level:  info
+
+#swiftmailer:
+#    delivery_address: me@example.com
+web_profiler:
+
+    # DEPRECATED, it is not useful anymore and can be removed
+    # safely from your configuration
+    verbose:              true
+
+    # display the web debug toolbar at the bottom of pages with
+    # a summary of profiler info
+    toolbar:              true
+    position:             bottom
+
+    # gives you the opportunity to look at the collected data
+    # before following the redirect
+    intercept_redirects: true
+
+    # Exclude AJAX requests in the web debug toolbar for specified paths
+    excluded_ajax_paths:  ^/bundles|^/_wdt
