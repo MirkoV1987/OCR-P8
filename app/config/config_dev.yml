@@ -32,3 +32,20 @@ monolog:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+web_profiler:
+
+    # DEPRECATED, it is not useful anymore and can be removed
+    # safely from your configuration
+    verbose:              true
+
+    # display the web debug toolbar at the bottom of pages with
+    # a summary of profiler info
+    toolbar:              true
+    position:             bottom
+
+    # gives you the opportunity to look at the collected data
+    # before following the redirect
+    intercept_redirects: true
+
+    # Exclude AJAX requests in the web debug toolbar for specified paths
+    excluded_ajax_paths:  ^/bundles|^/_wdt
