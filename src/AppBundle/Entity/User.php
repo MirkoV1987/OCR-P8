@@ -120,6 +120,25 @@ class User implements UserInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return in_array('ROLE_ADMIN', $this->getRoles());
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAnon()
+    {
+        if ($this->username == 'Anonyme') {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * @return Collection|Task[]
      */
     public function getTasks(): Collection
