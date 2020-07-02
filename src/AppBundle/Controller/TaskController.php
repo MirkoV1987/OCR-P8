@@ -3,10 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
+use AppBundle\Entity\User;
 use AppBundle\Form\TaskType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class TaskController extends Controller
 {
@@ -87,11 +89,27 @@ class TaskController extends Controller
     public function deleteTaskAction(Task $task)
     {
         $em = $this->getDoctrine()->getManager();
-        $em->remove($task);
-        $em->flush();
+        $user = $this->get('security.token_storage')
+        ->getToken()
+        ->getUser();
 
-        $this->addFlash('success', 'La tâche a bien été supprimée.');
+        if ($task->getUser() == $user) {
+                
+            $em->remove($task);
+            $em->flush();
+    
+            $this->addFlash('success', 'La tâche a bien été supprimée.');
+        }
+
+        if ($user->isAdmin() && $task->getUser() === null) {
+
+            $em->remove($task);
+            $em->flush();
+    
+            $this->addFlash('success', 'La tâche a bien été supprimée.');        
+        }
 
         return $this->redirectToRoute('task_list');
+        
     }
 }
