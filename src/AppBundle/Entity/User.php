@@ -38,10 +38,9 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="json")
-     * @Assert\Choice(callback="getAuthorizedRoles")
+     * @ORM\Column(type="string", length=25)
      */
-    private $roles = [];
+    private $roles = 'ROLE_USER';
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
@@ -88,12 +87,12 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
+    public function getRoles(): string
     {
         return $this->roles;
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(string $roles): self
     {
         $this->roles = $roles;
 
@@ -124,7 +123,7 @@ class User implements UserInterface
      */
     public function isAdmin()
     {
-        return in_array('ROLE_ADMIN', $this->getRoles());
+        return $this->getRoles() == 'ROLE_ADMIN';
     }
 
     /**
@@ -168,8 +167,8 @@ class User implements UserInterface
         return $this;
     }
 
-    public static function getAuthorizedRoles()
-    {
-        return [['ROLE_USER'], ['ROLE_ADMIN']];
-    }
+    // public static function getAuthorizedRoles()
+    // {
+    //     return [['ROLE_USER'], ['ROLE_ADMIN']];
+    // }
 }
