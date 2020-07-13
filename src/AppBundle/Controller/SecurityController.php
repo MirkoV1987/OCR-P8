@@ -10,6 +10,7 @@ class SecurityController extends Controller
 {
     /**
      * @Route("/login", name="login")
+     * @codeCoverageIgnore
      */
     public function loginAction(Request $request)
     {

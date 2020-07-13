@@ -2,10 +2,18 @@
 
 namespace Tests\AppBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Controller\DefaultController;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Test the default controller.
+ */
 class DefaultControllerTest extends WebTestCase
 {
+    /**
+     * Test the route
+     */
     public function testIndex()
     {
         $client = static::createClient();
