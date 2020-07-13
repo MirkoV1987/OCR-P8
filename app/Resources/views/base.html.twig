@@ -38,16 +38,24 @@
         <!-- Page Content -->
         <div class="container">
             <div class="row">
-                <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
+                <div class="col-lg-12 mb-5">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('user_create') }}" class="btn btn-primary text-uppercase">Créer un utilisateur</a>
+                        <a href="{{ path('user_list') }}" class="btn btn-warning text-uppercase">Liste des utilisateurs</a>
+                        <a href="{{ path('task_list')}}" class="btn btn-info text-uppercase">Revenir à la liste des tâches</a>
+                    {% endif %}
 
-                {% if app.user %}
-                <a href="{{ path('logout') }}" class="pull-right btn btn-danger">Se déconnecter</a>
-                {% endif %}
+                    {% if app.user %}
+                        <a href="{{ path('logout') }}" class="pull-right btn btn-danger text-uppercase">Se déconnecter</a>
+                    {% endif %}
 
-                {% if not app.user and 'login' != app.request.attributes.get('_route') %}
-                <a href="{{ path('login') }}" class="btn btn-success">Se connecter</a>
-                {% endif %}
+                    {% if not app.user and 'login' != app.request.attributes.get('_route') %}
+                        <a href="{{ path('login') }}" class="btn btn-success">Se connecter</a>
+                    {% endif %}
+                </div>
             </div>
+
+            <hr>
 
             <div class="row">
                 <div class="col-md-12">

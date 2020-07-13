@@ -16,6 +16,8 @@ class UserController extends Controller
      */
     public function listAction()
     {
+        $this->denyAccessUnlessGranted('GET', $this->getUser());
+
         return $this->render('user/list.html.twig', ['users' => $this->getDoctrine()->getRepository('AppBundle:User')->findAll()]);
     }
 
@@ -24,6 +26,8 @@ class UserController extends Controller
      */
     public function createAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('ADD', $this->getUser());
+
         $user = new User();
         
         $form = $this->createForm(UserType::class, $user);
@@ -33,7 +37,6 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-           // print_r($em); exit;
 
             $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
@@ -54,6 +57,8 @@ class UserController extends Controller
      */
     public function editAction(User $user, Request $request)
     {
+        $this->denyAccessUnlessGranted('EDIT', $this->getUser());
+
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -70,5 +75,22 @@ class UserController extends Controller
         }
 
         return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+    }
+
+    /**
+     * @Route("/users/{id}/delete", name="user_delete")
+     */
+    public function deleteAction(User $user)
+    {
+        $this->denyAccessUnlessGranted('REMOVE', $this->getUser());
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($user);
+        $em->flush();
+
+        $this->addFlash('success', 'L\'utilisateur a bien été supprimé');
+
+        return $this->redirectToRoute('user_list');
     }
 }

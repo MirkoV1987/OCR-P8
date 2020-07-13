@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Task|null findOneBy(array $criteria, array $orderBy = null)
  * @method Task[]    findAll()
  * @method Task[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @codeCoverageIgnore
  */
 class TaskRepository extends ServiceEntityRepository
 {

@@ -38,6 +38,11 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @ORM\Column(type="string", length=25)
+     */
+    private $roles = 'ROLE_USER';
+
+    /**
      * @ORM\Column(type="string", length=60, unique=true)
      * @Assert\NotBlank(message="Vous devez saisir une adresse email.")
      * @Assert\Email(message="Le format de l'adresse n'est pas correcte.")
@@ -79,6 +84,21 @@ class User implements UserInterface
         $this->password = $password;
     }
 
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): string
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function getEmail()
     {
         return $this->email;
@@ -89,11 +109,6 @@ class User implements UserInterface
         $this->email = $email;
     }
 
-    public function getRoles()
-    {
-        return array('ROLE_USER');
-    }
-
     public function eraseCredentials()
     {
     }
@@ -101,6 +116,25 @@ class User implements UserInterface
     public function __construct() 
     { 
         $this->tasks = new ArrayCollection(); 
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return $this->getRoles() == 'ROLE_ADMIN';
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAnon()
+    {
+        if ($this->username == 'Anonyme') {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -132,4 +166,9 @@ class User implements UserInterface
 
         return $this;
     }
+
+    // public static function getAuthorizedRoles()
+    // {
+    //     return [['ROLE_USER'], ['ROLE_ADMIN']];
+    // }
 }

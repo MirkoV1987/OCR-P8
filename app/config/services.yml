@@ -4,6 +4,18 @@ parameters:
 #    parameter_name: value
 
 services:
+    app.user_voter:
+        class: AppBundle\Security\UserVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false
+    
+    # security.authentication.manager:
+    #     class: AppBundle\Security\LoginFormAuthenticator
+    #     tags:
+    #         - { name: security.authentication.manager }
+
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
