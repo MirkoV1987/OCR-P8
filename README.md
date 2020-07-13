@@ -1,5 +1,5 @@
 # OCR-P8 - ToDoList<br/>
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d19c9088cfce4bef915def020dbc7f9f)](https://www.codacy.com/manual/MirkoV1987/OCR-P7?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MirkoV1987/OCR-P7&amp;utm_campaign=Badge_Grade)</br>
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ecb9b0dff3b742a2bbee8fcdc6e0ea5d)](https://www.codacy.com/manual/MirkoV1987/OCR-P8?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MirkoV1987/OCR-P8&amp;utm_campaign=Badge_Grade)</br>
 Projet 8 de mon parcours de Développeur d'applications - PHP/SYMFONY chez OpenClassrooms. Amélioration d'une application existante de ToDo & Co. Utilisation de Symfony 3, de PHPUnit pour les tests unitaires, de Behat pour les tests fonctionnels et de Blackfire pour l'audit de performance.
 
 <b>Environnement utilisé durant le développement</b>
