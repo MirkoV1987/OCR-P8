@@ -60,4 +60,10 @@ Projet 8 de mon parcours de Développeur d'applications - PHP/SYMFONY chez OpenC
 
     vendor/bin/phpunit --coverage-html web/test-coverage (le chemin peut changer en fonction de l'emplacement choisi pour les fichiers HTML)
 </br>
-<li>Félicitations ! Vous pouvez vous servir de ce projet à votre guise !</li>
+<b>PARTICIPER AU PROJET</b>
+<li>Participez à l'évolution de ce projet en suivant le guide ci-dessous :</li>
+</br>
+<li><a href="https://github.com/MirkoV1987/OCR-P8/blob/master/CONTRIBUTING.MD" target="_blank">CONTRIBUTION</a></li>
+</br>
+<li>Félicitations ! Vous pouvez vous servir de ce projet et/ou participer à son évolution !</li>
+
