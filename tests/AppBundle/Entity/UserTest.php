@@ -69,13 +69,13 @@ class UserTest extends TestCase
 
     public function testRoles()
     {
-        $this->user->setRoles('ROLE_USER');
-        $this->assertEquals('ROLE_USER', $this->user->getRoles());
+        $this->user->setRoles(array(["ROLE_USER"]));
+        $this->assertEquals(["ROLE_USER"], $this->user->getRoles());
     }
 
     public function testNoRoles()
     {
-        $this->assertEquals('ROLE_USER', $this->user->getRoles());
+        $this->assertEquals(["ROLE_USER"], $this->user->getRoles());
     }
 
     public function testSalt()

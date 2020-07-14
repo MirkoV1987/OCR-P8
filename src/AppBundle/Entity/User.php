@@ -166,9 +166,4 @@ class User implements UserInterface
 
         return $this;
     }
-
-    // public static function getAuthorizedRoles()
-    // {
-    //     return [['ROLE_USER'], ['ROLE_ADMIN']];
-    // }
 }

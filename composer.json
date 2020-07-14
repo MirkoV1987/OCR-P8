@@ -31,11 +31,15 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "symfony/phpunit-bridge": "^5.1",
-        "behat/behat": "3.1"
+        "behat/behat": "3.1",
+        "behat/mink": "^1.8",
+        "behat/mink-selenium2-driver": "^1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/profiler-pack": "^1.0"
+        "symfony/profiler-pack": "^1.0",
+        "behat/mink-extension": "^2.0",
+        "behat/mink-goutte-driver": "^1.0"
     },
     "scripts": {
         "symfony-scripts": [
