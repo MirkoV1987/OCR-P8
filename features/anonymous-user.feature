@@ -9,7 +9,7 @@ Feature:
 
   @login_page
   Scenario: A anonymous user can access to login page
-    Given I'm on "/login" page
+    Given I'm on "/web/login" page
     Then the page should contain "Nom d'utilisateur"
 
   @register
@@ -36,7 +36,7 @@ Feature:
 
   @login
   Scenario: A anonymous user login to the website
-    Given I'm on "/login" page
+    Given I'm on "/web/login" page
     Then I enter "Mirko" in the "Nom d'utilisateur :" field
     Then I enter "Mon mot de passe" in the "Mot de passe :" field
     When I click on button "Se connecter"
@@ -44,7 +44,7 @@ Feature:
 
   @login_fail
   Scenario: A anonymous user tries to login to the website and enter a wrong password
-    Given I'm on "/login" page
+    Given I'm on "/web/login" page
     Then I enter "Mirko" in the "Nom d'utilisateur :" field
     Then I enter "Mauvais mot de passe" in the "Mot de passe :" field
     When I click on button "Se connecter"

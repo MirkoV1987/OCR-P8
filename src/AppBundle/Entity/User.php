@@ -38,9 +38,14 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=25)
+     * @ORM\Column(name="roles", type="json_array")
      */
-    private $roles = 'ROLE_USER';
+    private $roles = [];
+
+    // /**
+    //  * @ORM\Column(type="string", length=25)
+    //  */
+    // private $roles = 'ROLE_USER';
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
@@ -85,18 +90,21 @@ class User implements UserInterface
     }
 
     /**
-     * @see UserInterface
+     * @return array
      */
-    public function getRoles(): string
+    public function getRoles(): array
     {
-        return $this->roles;
+        $roles = $this->roles;
+
+        return array_unique($roles);
     }
 
-    public function setRoles(string $roles): self
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
-
-        return $this;
     }
 
     public function getEmail()
@@ -123,7 +131,7 @@ class User implements UserInterface
      */
     public function isAdmin()
     {
-        return $this->getRoles() == 'ROLE_ADMIN';
+        return in_array('ROLE_ADMIN', $this->getRoles());
     }
 
     /**
