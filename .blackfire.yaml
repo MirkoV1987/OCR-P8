@@ -1,0 +1,40 @@
+# This is a sample .blackfire.yaml file created by Blackfire.
+# You can read more about .blackfire.yaml here: https://blackfire.io/docs/cookbooks/tests
+tests:
+    "The homepage should be fast":
+        path: "http://p8-todolist/web/login"
+        assertions:
+            - "main.wall_time < 200ms"
+
+    "The tasks page should be fast":
+        path: "http://p8-todolist/web/tasks"
+        assertions:
+            - "main.wall_time < 200ms"
+
+    # "Pages should be fast enough":
+    #     path: "/.*" # run the assertions for all HTTP requests
+    #     assertions:
+    #         - "main.wall_time < 100ms" # wall clock time is less than 100ms
+
+    # "A database connection should be opened only when queries are made":
+    #     path: '/.*'
+    #     when: "metrics.sql.connections.count > 0"
+    #     assertions:
+    #         - 'metrics.sql.queries.count > 0'
+
+    # "Commands should be fast enough":
+    #     command: ".*" # run the assertions for all CLI commands
+    #     assertions:
+    #         - "main.wall_time < 2s" # wall clock time is less than 2s
+
+
+# For writing scenarios, take a look at the documentation
+# https://blackfire.io/docs/cookbooks/scenarios
+scenarios: |
+    #!blackfire-player
+
+    scenario
+        name 'The homepage should answer with a 200 status code'
+
+        visit url('/')
+            expect status_code() == 200

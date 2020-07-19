@@ -1,5 +1,0 @@
-# Blackfire config 
-
-runtime:
-    extensions:
-        - blackfire

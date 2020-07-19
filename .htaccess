@@ -1,0 +1,9 @@
+#<VirtualHost>
+#    ServerName http://p8-todolist/web/login
+#    DocumentRoot "/path/to/vhost1/"
+#    ...
+#    <IfModule mod_php5.c>
+#        php_admin_value blackfire.server_id "22c2c288-5b6d-454c-b7ee-2c61955d40ca"
+#        php_admin_value blackfire.server_token "d031145589d31232014b8b5f1a90932894ed673f32a1bcbe45c3b88736b0bb26"
+#    </IfModule>
+#</VirtualHost>

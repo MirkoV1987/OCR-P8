@@ -67,17 +67,6 @@ class UserTest extends TestCase
         $this->assertEquals(true, $this->user->IsAnon());
     }
 
-    public function testRoles()
-    {
-        $this->user->setRoles(array(["ROLE_USER"]));
-        $this->assertEquals(["ROLE_USER"], $this->user->getRoles());
-    }
-
-    public function testNoRoles()
-    {
-        $this->assertEquals(["ROLE_USER"], $this->user->getRoles());
-    }
-
     public function testSalt()
     {
         $this->assertEquals(null, $this->user->getSalt());

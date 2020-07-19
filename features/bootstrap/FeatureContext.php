@@ -37,14 +37,6 @@ class FeatureContext extends MinkContext
     }
 
     /**
-     * @Then the page should contain :words
-     */
-    public function thePageShouldContain($words)
-    {
-        $this->assertPageContainsText($words);
-    }
-
-    /**
      * @Then I enter :entry in the :fieldname field
      */
     public function fillTheForm($entry, $fieldname)
@@ -69,26 +61,34 @@ class FeatureContext extends MinkContext
     }
 
     /**
-     * @Given I'm logged with ADMIN role
+     * @Then the page should contain :words
      */
-    public function loggedInAsAdmin()
+    public function thePageShouldContain($words)
     {
-        $this->visit('/login');
-        $this->fillField("Nom d'utilisateur :", 'Admin');
-        $this->fillField('Mot de passe :', 'Codesecret');
-        $this->pressButton('Se connecter');
-        $this->assertPageContainsText('Bienvenue sur Todo List');
+        $this->assertPageContainsText($words);
     }
 
     /**
-     * @Given I'm logged with USER role
+     * @Given I'm logged with ROLE_ADMIN role
+     */
+    public function loggedInAsAdmin()
+    {
+        $this->visit('http://localhost/P8-ToDoList/web');
+        $this->fillField("Nom d'utilisateur :", 'Admin1');
+        $this->fillField('Mot de passe :', 'admin');
+        $this->pressButton('Se connecter');
+        $this->assertPageContainsText('Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !');
+    }
+
+    /**
+     * @Given I'm logged with ROLE_USER role
      */
     public function loggedInAsUser()
     {
-        $this->visit('/login');
-        $this->fillField("Nom d'utilisateur :", 'Mirko');
-        $this->fillField('Mot de passe :', 'Mysecretecode');
+        $this->visit('http://localhost/P8-ToDoList/web');
+        $this->fillField("Nom d'utilisateur :", 'TestUsers');
+        $this->fillField('Mot de passe :', '123@456');
         $this->pressButton('Se connecter');
-        $this->assertPageContainsText('Bienvenue sur Todo List');
+        $this->assertPageContainsText('Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !');
     }
 }

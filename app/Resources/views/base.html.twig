@@ -40,9 +40,9 @@
             <div class="row">
                 <div class="col-lg-12 mb-5">
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('user_create') }}" class="btn btn-primary text-uppercase">Créer un utilisateur</a>
-                        <a href="{{ path('user_list') }}" class="btn btn-warning text-uppercase">Liste des utilisateurs</a>
-                        <a href="{{ path('task_list')}}" class="btn btn-info text-uppercase">Revenir à la liste des tâches</a>
+                        <button><a href="{{ path('user_create') }}" class="btn btn-primary text-uppercase">Créer un utilisateur</a></button>
+                        <button><a href="{{ path('user_list') }}" class="btn btn-warning text-uppercase">Liste des utilisateurs</a></button>
+                        <button><a href="{{ path('task_list')}}" class="btn btn-info text-uppercase">Revenir à la liste des tâches</a></button>
                     {% endif %}
 
                     {% if app.user %}

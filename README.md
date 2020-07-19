@@ -58,7 +58,7 @@ Projet 8 de mon parcours de Développeur d'applications - PHP/SYMFONY chez OpenC
 <li>Pour générer/mettre à jour les fichiers HMTL avec le <em>code coverage</em> de l'application, lancez la commande :</li>
 </br>
 
-    vendor/bin/phpunit --coverage-html web/test-coverage (le chemin peut changer en fonction de l'emplacement choisi pour les fichiers HTML)
+    vendor/bin/phpunit --coverage-html tests/test-coverage (le chemin peut changer en fonction de l'emplacement choisi pour les fichiers HTML)
 </br>
 <b>PARTICIPER AU PROJET</b>
 <li>Participez à l'évolution de ce projet en suivant le guide ci-dessous :</li>
