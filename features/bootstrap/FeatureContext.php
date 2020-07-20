@@ -60,7 +60,7 @@ class FeatureContext extends MinkContext
      */
     public function loggedInAsAdmin()
     {
-        $this->visit('http://localhost/P8-ToDoList/web/login');
+        $this->visit('/login');
         $this->fillField("Nom d'utilisateur :", 'Admin1');
         $this->fillField('Mot de passe :', 'admin');
         $this->pressButton('Se connecter');
@@ -72,7 +72,7 @@ class FeatureContext extends MinkContext
      */
     public function loggedInAsUser()
     {
-        $this->visit('http://localhost/P8-ToDoList/web/login');
+        $this->visit('/login');
         $this->fillField("Nom d'utilisateur :", 'TestUsers');
         $this->fillField('Mot de passe :', '123@456');
         $this->pressButton('Se connecter');

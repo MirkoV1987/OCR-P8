@@ -2,6 +2,6 @@
 default:
     extensions:
         Behat\MinkExtension:
-            base_url: 'http://localhost/p8-todolist/web/app_dev.php'
+            base_url: 'INSERT_BASE_URL'
             goutte: ~
             selenium2: ~
