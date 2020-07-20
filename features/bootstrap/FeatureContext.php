@@ -1,33 +1,20 @@
 <?php
 
 // use Behat\Behat\Tester\Exception\PendingException;
+//use Behat\MinkExtension\Context\MinkContext;
+
+// use Behat\Behat\Context\Context;
+// use Behat\Behat\Context\SnippetAcceptingContext;
+// use Behat\Gherkin\Node\PyStringNode;
+// use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 
 /**
  * Defines application features from the specific context.
  */
+//class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
 class FeatureContext extends MinkContext
 {
-    /**
-     * @Given  I delete Mirko user
-     */
-    public function deleteUser()
-    {
-        try {
-            $pdo = new PDO('mysql:host=localhost;dbname=db_todolist;charset=utf8', 'root');
-        } catch (Exception $e) {
-            echo 'Erreur : '.$e->getMessage();
-        }
-
-        $user = $pdo->prepare("SELECT 1 FROM user WHERE username=?");
-        $user->execute(['Mirko']);
-        $user->fetchColumn();
-
-        if ($user) {
-            $pdo->exec('DELETE FROM user WHERE username = "Mirko"');
-        }
-    }
-
     /**
      * @Given I'm on :path page
      */
@@ -73,11 +60,11 @@ class FeatureContext extends MinkContext
      */
     public function loggedInAsAdmin()
     {
-        $this->visit('http://localhost/P8-ToDoList/web');
+        $this->visit('http://localhost/P8-ToDoList/web/login');
         $this->fillField("Nom d'utilisateur :", 'Admin1');
         $this->fillField('Mot de passe :', 'admin');
         $this->pressButton('Se connecter');
-        $this->assertPageContainsText('Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !');
+        $this->assertPageContainsText('Bienvenue sur Todo List');
     }
 
     /**
@@ -85,10 +72,30 @@ class FeatureContext extends MinkContext
      */
     public function loggedInAsUser()
     {
-        $this->visit('http://localhost/P8-ToDoList/web');
+        $this->visit('http://localhost/P8-ToDoList/web/login');
         $this->fillField("Nom d'utilisateur :", 'TestUsers');
         $this->fillField('Mot de passe :', '123@456');
         $this->pressButton('Se connecter');
-        $this->assertPageContainsText('Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !');
+        $this->assertPageContainsText('Bienvenue sur Todo List');
+    }
+
+    /**
+     * @Given  I delete Mirko user
+     */
+    public function deleteUser()
+    {
+        try {
+            $pdo = new PDO('mysql:host=localhost;dbname=db_todolist;charset=utf8', 'root');
+        } catch (Exception $e) {
+            echo 'Erreur : '.$e->getMessage();
+        }
+
+        $user = $pdo->prepare("SELECT 1 FROM user WHERE username=?");
+        $user->execute(['Mirko']);
+        $user->fetchColumn();
+
+        if ($user) {
+            $pdo->exec('DELETE FROM user WHERE username = "Mirko"');
+        }
     }
 }

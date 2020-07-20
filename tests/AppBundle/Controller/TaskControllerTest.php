@@ -1,145 +1,99 @@
 <?php
 
-// namespace Tests\AppBundle\Controller;
+// namespace App\Tests\Controller;
+
 
 // use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-// use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-// use Symfony\Component\BrowserKit\Cookie;
-// use AppBundle\Entity\User;
-// use AppBundle\Entity\Task;
 
-// class TaskControllerTest extends WebTestCase 
+// class TaskControllerTest extends WebTestCase
 // {
-//     private $client = null;
-//     private $entityManager;
+//     private $client;
 
-//     public function setUp()
+//     public function setUp(): void
 //     {
 //         $this->client = static::createClient();
-
-//         $this->entityManager = $this->client->getContainer()
-//             ->get('doctrine')
-//             ->getManager();
 //     }
 
-//     // fake user enought to access some part of the site
-//     private function logIn(array $role)
+//     public function loginUser(): void
 //     {
-//         $session = $this->client->getContainer()->get('session');
-//         $firewallName = 'main';
-//         $firewallContext = 'main';
-//         $token = new UsernamePasswordToken('user', null, $firewallName, $role);
-
-//         $session->set('_security_'.$firewallContext, serialize($token));
-//         $session->save();
-
-//         $cookie = new Cookie($session->getName(), $session->getId());
-//         $this->client->getCookieJar()->set($cookie);
+//         $crawler = $this->client->request('GET', 'http://localhost/P8-ToDoList/web/login');
+//         $form = $crawler->selectButton('Connexion')->form();
+//         $this->client->submit($form, ['Nom d\'utilisateur' => 'Admin1', 'Mot de passe' => 'admin']);
 //     }
 
-//     // connect Real User on database with his id number
-//     private function logInRealUser($userId)
+//     public function testListAction()
 //     {
-//         $user = $this->entityManager
-//             ->getRepository(User::class)
-//             ->find($userId);
-
-//         $session = $this->client->getContainer()->get('session');
-//         $firewallName = 'main';
-//         $firewallContext = 'main';
-
-//         $token = new UsernamePasswordToken($user, null, $firewallName);
-
-//         $session->set('_security_'.$firewallContext, serialize($token));
-//         $session->save();
-
-//         $cookie = new Cookie($session->getName(), $session->getId());
-//         $this->client->getCookieJar()->set($cookie);
+//         $this->loginUser();
+//         $this->client->request('GET', 'http://P8-ToDoList/web/tasks');
+//         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 //     }
 
-//     //List scenarii
-//     public function testTaskList()
+//     public function testCreateAction()
 //     {
-//         $this->logIn(['ROLE_USER']);
-//         $crawler = $this->client->request('GET', 'http://p8-todolist/web/tasks');
-//         $this->client->followRedirect();
-//         $this->assertContains("Développer les tests unitaires", $this->client->getResponse()->getContent());
-//     }
+//         $this->loginUser();
 
-//     public function testTaskListDone()
-//     {
-//         $this->logIn(['ROLE_USER']);
-//         $crawler = $this->client->request('GET', '/tasks/done');
-//         $this->assertContains("liste des tâches faites", $this->client->getResponse()->getContent());
-//     }
+//         $crawler = $this->client->request('GET', 'http://localhost/P8-ToDoList/web/tasks/create');
+//         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-//     //Create scenarii
-//     public function testTaskCreatePage()
-//     {
-//         $this->logIn(['ROLE_USER']);
-//         $crawler = $this->client->request('GET', 'http://p8-todolist/web/tasks/create');
-//         $this->assertContains("title", $this->client->getResponse()->getContent());
-//     }
-
-//     public function testTaskCreatePageSendForm()
-//     {
-//         $this->logIn(['ROLE_USER']);
-//         $crawler = $this->client->request('GET', 'http://p8-todolist/web/tasks/create');
 //         $form = $crawler->selectButton('Ajouter')->form();
 //         $form['task[title]'] = 'title';
 //         $form['task[content]'] = 'content';
 //         $this->client->submit($form);
-//         $this->client->followRedirect();
-//         $this->assertContains("a bien été ajoutée", $this->client->getResponse()->getContent());
+
+//         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+//         $crawler = $this->client->followRedirect();
+
+//         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+//         $this->assertEquals(1, $crawler->filter('div.alert-success')->count());
 //     }
 
-//     //Edit scenarii
-//     public function testTaskEditPageOk()
+//     public function testEditAction()
 //     {
-//         $time = time();
-//         $this->logInRealUser(1);
-//         $crawler = $this->client->request('GET', '/tasks/1/edit');
-//         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+//         $this->loginUser();
+
+//         $crawler = $this->client->request('GET', 'http://localhost/P8-ToDoList/web/tasks/11/edit');
+//         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
 //         $form = $crawler->selectButton('Modifier')->form();
-//         $form['task[title]'] = 'title_modif_' . $time;
-//         $form['task[content]'] = 'content_modif' . $time;
+//         $form['task[title]'] = 'title';
+//         $form['task[content]'] = 'content';
 //         $this->client->submit($form);
-//         $this->client->followRedirect();
-//         $this->assertContains("a bien été modifiée", $this->client->getResponse()->getContent());
-//         $this->assertContains('title_modif_' . $time, $this->client->getResponse()->getContent());
+
+//         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+//         $crawler = $this->client->followRedirect();
+
+//         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+//         $this->assertEquals(1, $crawler->filter('div.alert-success')->count());
 //     }
 
-//     //Delete scenarii
-//     public function testTaskDeletePageError403FakeUser()
+//     public function testToggleTaskAction(): void
 //     {
-//         $this->logIn(['ROLE_USER']);
-//         $crawler = $this->client->request('GET', '/tasks/1/delete');
-//         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
+//         $this->loginUser();
+
+//         $this->client->request('GET', 'http://localhost/P8-ToDoList/web/tasks/11/toggle');
+
+//         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+//         $crawler = $this->client->followRedirect();
+
+//         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+//         $this->assertEquals(1, $crawler->filter('div.alert-success')->count());
+
 //     }
 
-//     public function testTaskDeletePageError404()
+//     public function testDeleteAction()
 //     {
-//         $this->logIn(['ROLE_ADMIN']);
-//         $crawler = $this->client->request('GET', '/tasks/9999999/delete');
-//         $this->assertSame(404, $this->client->getResponse()->getStatusCode());
-//     }
+//         $this->loginUser();
 
-//     //Toggle scenarii
-//     public function testTaskTogglePageError403()
-//     {
-//         $this->logIn(['ROLE_USER']);
-//         $crawler = $this->client->request('GET', '/tasks/1/toggle');
-//         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
-//     }
+//         $this->client->request('GET', 'http://localhost/P8-ToDoList/web/tasks/11/delete');
 
-//     public function testTaskToggleDoubleOk()
-//     {
-//         $this->logInRealUser(1);
-//         $crawler = $this->client->request('GET', '/tasks/1/toggle');
-//         $this->client->followRedirect();
-//         $this->assertContains("a bien été marquée", $this->client->getResponse()->getContent());
-//         $crawler = $this->client->request('GET', '/tasks/1/toggle');
-//         $this->client->followRedirect();
-//         $this->assertContains("a bien été marquée", $this->client->getResponse()->getContent());
+//         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+//         $crawler = $this->client->followRedirect();
+
+//         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+//         $this->assertEquals(1, $crawler->filter('div.alert-success')->count());
 //     }
 // }

@@ -34,13 +34,13 @@
         "behat/behat": "3.1",
         "behat/mink": "^1.8",
         "behat/mink-selenium2-driver": "^1.4",
-        "blackfire/php-sdk": "^1.23"
+        "blackfire/php-sdk": "^1.23",
+        "behat/mink-extension": "^2.3",
+        "behat/mink-goutte-driver": "^1.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/profiler-pack": "^1.0",
-        "behat/mink-extension": "^2.0",
-        "behat/mink-goutte-driver": "^1.0"
+        "symfony/profiler-pack": "^1.0"
     },
     "scripts": {
         "symfony-scripts": [
