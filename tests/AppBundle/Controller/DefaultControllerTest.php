@@ -16,18 +16,6 @@ class DefaultControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    // public function testIndexNotLogged()
-    // {
-    //     $crawler = $this->client->request('GET', 'http://p8-todolist/web/');
-	// 	// $this->assertTrue(
-	// 	//     $this->client->getResponse()->isRedirect('http://p8-todolist/web/login')
-	// 	// );
-
-    //     $this->client->followRedirects();
-    //     $crawler = $this->client->request('GET', 'http://p8-todolist/web/login');
-    //     $this->assertContains("To Do:", $this->client->getResponse()->getContent());
-    // }
-
     /**
     * @dataProvider demoProvider
     */

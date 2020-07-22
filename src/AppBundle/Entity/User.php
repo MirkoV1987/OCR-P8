@@ -15,7 +15,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @UniqueEntity("username")
  * @UniqueEntity("email")
- * @UniqueEntity("password")
  */
 class User implements UserInterface
 {
@@ -33,7 +32,7 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=64, unique=true)
+     * @ORM\Column(type="string", length=64)
      */
     private $password;
 
@@ -41,11 +40,6 @@ class User implements UserInterface
      * @ORM\Column(name="roles", type="json_array")
      */
     private $roles = [];
-
-    // /**
-    //  * @ORM\Column(type="string", length=25)
-    //  */
-    // private $roles = 'ROLE_USER';
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
