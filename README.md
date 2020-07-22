@@ -66,4 +66,3 @@ Projet 8 de mon parcours de Développeur d'applications - PHP/SYMFONY chez OpenC
 <li><a href="https://github.com/MirkoV1987/OCR-P8/blob/master/CONTRIBUTING.MD" target="_blank">CONTRIBUTION</a></li>
 </br>
 <li>Félicitations ! Vous pouvez vous servir de ce projet et/ou participer à son évolution !</li>
-

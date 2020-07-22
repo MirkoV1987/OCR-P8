@@ -21,7 +21,7 @@ class DefaultControllerTest extends WebTestCase
     */
     public function testDemo($statusCode, $url)
     {
-        $crawler = $this->client->request('GET', $url);
+        $this->client->request('GET', $url);
         $statusCodeExcpected = $this->client->getResponse()->getStatusCode();
         $this->assertEquals($statusCode, $statusCodeExcpected);
     }
@@ -37,7 +37,7 @@ class DefaultControllerTest extends WebTestCase
     public function testIndexLogged()
     {
         $this->logIn(['ROLE_USER']);
-        $crawler = $this->client->request('GET', '/');
+        $this->client->request('GET', '/');
         $this->assertTrue(
             !$this->client->getResponse()->isRedirect()
         );

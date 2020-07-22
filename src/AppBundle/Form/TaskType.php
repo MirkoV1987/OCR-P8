@@ -2,9 +2,11 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Task;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TaskType extends AbstractType
 {
@@ -14,5 +16,16 @@ class TaskType extends AbstractType
             ->add('title')
             ->add('content', TextareaType::class)
         ;
+    }
+
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class'      => Task::class,
+            'csrf_protection' => true,
+        ]);
     }
 }
