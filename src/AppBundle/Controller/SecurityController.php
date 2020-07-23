@@ -2,14 +2,23 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends Controller
+/**
+ * 
+ * Class SecurityController
+ * @codeCoverageIgnore
+ */
+class SecurityController extends AbstractController
 {
     /**
+     * @param AuthenticationUtils $authenticationUtils
      * @Route("/login", name="login")
+     * 
+     * @return Response
      */
     public function loginAction()
     {

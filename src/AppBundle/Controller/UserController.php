@@ -5,29 +5,40 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-//use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @codeCoverageIgnore
  */
-class UserController extends Controller
+class UserController extends AbstractController
 {
     /**
      * @Route("/users", name="user_list")
+     * 
+     * @return Response
      */
     public function listAction()
     {
         $this->denyAccessUnlessGranted('GET', $this->getUser());
 
-        return $this->render('user/list.html.twig', ['users' => $this->getDoctrine()->getRepository('AppBundle:User')->findAll()]);
+        $response = $this->render('user/list.html.twig', ['users' => $this->getDoctrine()->getRepository('AppBundle:User')->findAll()]);
+        
+        $response->setSharedMaxAge(200);
+
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+
+        return $response;
     }
 
     /**
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * 
      * @Route("/users/create", name="user_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, EntityManagerInterface $em = null)
     {
         $this->denyAccessUnlessGranted('ADD', $this->getUser());
 
@@ -56,9 +67,12 @@ class UserController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * 
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function editAction(User $user, Request $request)
+    public function editAction(User $user, Request $request, EntityManagerInterface $em = null)
     {
         $this->denyAccessUnlessGranted('EDIT', $this->getUser());
 
@@ -67,10 +81,13 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+
             $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
-            $this->getDoctrine()->getManager()->flush();
+            $em->flush();
 
             $this->addFlash('success', "L'utilisateur a bien été modifié");
 
@@ -81,6 +98,10 @@ class UserController extends Controller
     }
 
     /**
+     * @param User $user
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * 
      * @Route("/users/{id}/delete", name="user_delete")
      */
     public function deleteAction(User $user)
