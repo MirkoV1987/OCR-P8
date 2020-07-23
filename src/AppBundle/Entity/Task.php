@@ -110,6 +110,16 @@ class Task
     }
 
     /**
+     * @return User
+     */
+    private function getAnonUser()
+    {
+        $user = new User();
+        $user->setUsername('Anonyme');
+        return $user;
+    }
+
+    /**
      * Set isDone.
      *
      * @param bool $isDone
@@ -121,15 +131,5 @@ class Task
         $this->isDone = $isDone;
 
         return $this;
-    }
-
-    /**
-     * Get isDone.
-     *
-     * @return bool
-     */
-    public function getIsDone()
-    {
-        return $this->isDone;
     }
 }

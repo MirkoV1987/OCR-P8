@@ -53,6 +53,11 @@ class User implements UserInterface
      */
     private $tasks;
 
+    public function __construct() 
+    { 
+        $this->tasks = new ArrayCollection(); 
+    }
+
     public function getId()
     {
         return $this->id;
@@ -113,11 +118,6 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
-    }
-
-    public function __construct() 
-    { 
-        $this->tasks = new ArrayCollection(); 
     }
 
     /**

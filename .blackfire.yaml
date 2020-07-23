@@ -17,3 +17,8 @@ tests:
     assertions:
     - main.wall_time < 60ms
     - main.memory < 10Mb
+  "La page des tâches est rapide":
+    path: "http://p8-todolist/web/tasks"
+    assertions:
+    - main.wall_time < 60ms
+    - main.memory < 10Mb
