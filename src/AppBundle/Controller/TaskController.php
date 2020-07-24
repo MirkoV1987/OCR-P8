@@ -59,7 +59,7 @@ class TaskController extends AbstractController
     public function listDoneAction()
     {
         return $this->render(
-            'task/list.html.twig',
+            'task/donelist.html.twig',
             [
                 'tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findBy(
                     array('isDone' => true),

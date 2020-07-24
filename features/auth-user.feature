@@ -14,9 +14,9 @@ Feature:
     Given I'm logged with ROLE_USER role
     Given I'm on "/" page
     When I click on link "Créer une nouvelle tâche"
-    Then the page should contain "Title"
-    Then I enter "Faire les courses" in the "Title" field
-    Then I enter "café, sel, lait, pates" in the "Content" field
+    Then the page should contain "Titre"
+    Then I enter "Faire les courses" in the "Titre" field
+    Then I enter "café, sel, lait, pates" in the "Contenu" field
     When I click on button "Ajouter"
     Then the page should contain "Faire les courses"
 
@@ -25,9 +25,9 @@ Feature:
     Given I'm logged with ROLE_USER role
     Given I'm on "/tasks" page
     When I click on link "Faire les courses"
-    Then the page should contain "Title"
-    Then I enter "Faire les courses" in the "Title" field
-    Then I enter "sel, poivre" in the "Content" field
+    Then the page should contain "Titre"
+    Then I enter "Faire les courses" in the "Titre" field
+    Then I enter "sel, poivre" in the "Contenu" field
     When I click on button "Modifier"
     Then the page should contain "Superbe ! La tâche a bien été modifiée. "
 
@@ -42,8 +42,8 @@ Feature:
   Scenario: An authenicated user marks his task todo
     Given I'm logged with ROLE_USER role
     Given I'm on "/tasks" page
-    When I click on button "Marquer non terminée"
-    Then the page should contain "Superbe ! La tâche"
+    When I click on link "Consulter la liste des tâches terminées"
+    Then the page should contain "Consulter la liste des tâches à faire"
 
   @delete_task_fail
   Scenario: An authenicated user deletes his task

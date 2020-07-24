@@ -53,8 +53,8 @@ class FeatureContext extends MinkContext
     public function loggedInAsAdmin()
     {
         $this->visit('/login');
-        $this->fillField("Nom d'utilisateur :", 'Admin1');
-        $this->fillField('Mot de passe :', 'admin');
+        $this->fillField("Nom d'utilisateur :", 'Mirko Venturi');
+        $this->fillField('Mot de passe :', 'Mirko87');
         $this->pressButton('Se connecter');
         $this->assertPageContainsText('Bienvenue sur Todo List');
     }
