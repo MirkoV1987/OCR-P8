@@ -38,6 +38,7 @@ class Task
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="tasks")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
@@ -87,12 +88,18 @@ class Task
         $this->content = $content;
     }
 
-    public function getUser(): ?User
+     /**
+     * @return User
+     */
+    public function getUser()
     {
+        if ($this->user === null) {
+            return $this->getAnonUser();
+        }
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(User $user)
     {
         $this->user = $user;
 
