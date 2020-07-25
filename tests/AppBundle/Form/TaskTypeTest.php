@@ -11,8 +11,8 @@ class TaskTypeTest extends TypeTestCase
     public function testSubmitValidDataTask()
     {
         $formData = array(
-            'title' => 'title',
-            'content' => 'content',
+            'title' => 'Titre',
+            'content' => 'Contenu',
         );
         $form = $this->factory->create(TaskType::class);
         $task = new Task();

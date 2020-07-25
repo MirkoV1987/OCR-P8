@@ -10,36 +10,25 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class SecurityControllerTest extends WebTestCase
 {
-    /**
-     * Test the route with an authenticated user.
-     */
-    public function testLoginAction()
+    private $client;
+
+    protected function setUp(): void
     {
-        // Create an authenticated client
-        $client = static::createClient();
+        $this->client = self::createClient();
+    }
 
-        // Request the route
-        $crawler = $client->request('GET', '/login');
-
-        // Test
-        $this->assertEquals(
-            1,
-            $crawler->filter('form')->count()
-        );
-        $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-
-        // Select the form
-        $form = $crawler->selectButton('Se connecter')->form();
-
-        // set some values
-        $form['_username'] = 'TestUsers';
-        $form['_password'] = '123@456';
-
-        // submit the form
-        $crawler = $client->submit($form);
-
-        // Test
-        $this->assertTrue($client->getResponse()->isRedirect());
+    public function testLogin(): void
+    {
+        $crawler = $this->client->request('GET', '/login');
+        $buttonCrawlerForm = $crawler->selectButton('Se connecter');
+        $form = $buttonCrawlerForm->form();
+        $this->client->submit($form, [
+            '_username' => 'Mirko Venturi',
+            '_password' => 'Mirko87'
+        ]);
+        
+        $crawler = $this->client->request('GET', '/');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame('Se déconnecter', $crawler->filter('a.pull-right.btn.btn-danger')->text());
     }
 }

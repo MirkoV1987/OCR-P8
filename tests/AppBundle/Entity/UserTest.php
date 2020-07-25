@@ -3,7 +3,6 @@ namespace Tests\AppBundle\Entity;
 
 use AppBundle\Entity\User;
 use AppBundle\Entity\Task;
-//use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use PHPUnit\Framework\TestCase;
 use Doctrine\Common\Collections\ArrayCollection;
 

@@ -3,7 +3,6 @@ namespace Tests\AppBundle\Entity;
 
 use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
-//use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use PHPUnit\Framework\TestCase;
 
 class TaskTest extends TestCase
@@ -55,8 +54,14 @@ class TaskTest extends TestCase
         $this->assertEquals($userStub, $this->task->getUser());
     }
 
-    // public function testNoUser()
-    // {
-    //     $this->assertEquals('Anonyme', $this->task->getUser()->getIsAnon());
-    // }
+    public function testNoUser()
+    {
+        $this->assertEquals('Anonyme', $this->task->getUser()->getUsername());
+    }
+
+    public function testSetIsDone()
+    {
+        $this->task->setIsDone($this->task->IsDone());
+        $this->assertEquals(false, $this->task->IsDone());
+    }
 }

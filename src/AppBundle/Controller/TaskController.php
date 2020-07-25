@@ -13,10 +13,10 @@ use Doctrine\ORM\EntityManagerInterface;
  *
  * Class TaskController
  *
- * @codeCoverageIgnore
  */
 class TaskController extends AbstractController
 {
+    // @codeCoverageIgnoreStart
     /**
      * @Route("/", name="homepage")
      * 
@@ -30,6 +30,7 @@ class TaskController extends AbstractController
 
         return $response;
     }
+    // @codeCoverageIgnoreEnd
 
     /**
      * @Route("/tasks", name="task_list")
@@ -86,7 +87,7 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            // @codeCoverageIgnoreStart
             $em = $this->getDoctrine()->getManager();
             $em->persist($task);
             $em->flush();
@@ -94,6 +95,7 @@ class TaskController extends AbstractController
             $this->addFlash('success', 'La tâche a été bien été ajoutée.');
 
             return $this->redirectToRoute('task_list');
+            // @codeCoverageIgnoreEnd
         }
 
         return $this->render('task/create.html.twig', ['form' => $form->createView()]);
@@ -158,17 +160,21 @@ class TaskController extends AbstractController
         ->getUser();
 
         if ($task->getUser() == $user) {
+            // @codeCoverageIgnoreStart
             $em->remove($task);
             $em->flush();
     
             $this->addFlash('success', 'La tâche a bien été supprimée.');
+            // @codeCoverageIgnoreEnd
         }
 
         if ($user->isAdmin() && $task->getUser() === null) {
+            // @codeCoverageIgnoreStart
             $em->remove($task);
             $em->flush();
     
             $this->addFlash('success', 'La tâche a bien été supprimée.');
+            // @codeCoverageIgnoreEnd
         }
 
         return $this->redirectToRoute('task_list');

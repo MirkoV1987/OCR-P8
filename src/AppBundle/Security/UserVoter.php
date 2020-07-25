@@ -40,5 +40,7 @@ class UserVoter extends Voter
             }
             return false;
         }
+    // @codeCoverageIgnoreStart
     }
+    // @codeCoverageIgnoreEnd
 }

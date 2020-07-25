@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * @codeCoverageIgnore
+ * Class UserController
  */
 class UserController extends AbstractController
 {
@@ -50,6 +50,8 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // @codeCoverageIgnoreStart
+
             $em = $this->getDoctrine()->getManager();
 
             $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
@@ -61,6 +63,7 @@ class UserController extends AbstractController
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
             return $this->redirectToRoute('user_list');
+            // @codeCoverageIgnoreEnd
         }
 
         return $this->render('user/create.html.twig', ['form' => $form->createView()]);

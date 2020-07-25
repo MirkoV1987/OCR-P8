@@ -121,9 +121,9 @@ class Task
      */
     private function getAnonUser()
     {
-        $user = new User();
-        $user->setUsername('Anonyme');
-        return $user;
+        $anonUser = new User();
+        $anonUser->setUsername('Anonyme');
+        return $anonUser;
     }
 
     /**

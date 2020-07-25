@@ -1,116 +1,160 @@
 <?php
 
-// namespace Tests\AppBundle\Controller;
+namespace Tests\AppBundle\Controller;
 
-// use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-// use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-// use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-// class UserControllerTest extends WebTestCase
-// {
-//     private $client = null;
+class UserControllerTest extends WebTestCase
+{
 
-//     public function setUp()
-//     {
-//         $this->client = static::createClient();
-//     }
+    private $client;
 
-//     private function logIn(array $role)
-//     {
-//         $session = $this->client->getContainer()->get('session');
-//         $firewallName = 'main';
-//         $firewallContext = 'main';
-//         $token = new UsernamePasswordToken('user', null, $firewallName, $role);
+    /**
+     * Création client HTTP
+     */
+    public function setUp()
+    {
+        $this->client = static::createClient();
+    }
 
-//         $session->set('_security_'.$firewallContext, serialize($token));
-//         $session->save();
+    /**
+     * Test d'affichage de la liste des utilisateurs par un administrateur ROLE_ADMIN
+     */
+    public function testListAsAdmin()
+    {
+        $crawler = $this->client->request('GET', '/login');
+        $buttonCrawlerForm = $crawler->selectButton('Se connecter');
+        $form = $buttonCrawlerForm->form();
+        $this->client->submit($form, [
+            '_username' => 'Mirko Venturi',
+            '_password' => 'Mirko87'
+        ]);
+        $this->client->request('GET', '/users');
+        static::assertEquals(200, $this->client->getResponse()->getStatusCode());
+    }
 
-//         $cookie = new Cookie($session->getName(), $session->getId());
-//         $this->client->getCookieJar()->set($cookie);
-//     }
+    /**
+     * Test d'affichage de la liste des utilisateurs par un utilisateur ROLE_USER
+     */
+    public function testListAsUser()
+    {
+        $crawler = $this->client->request('GET', '/login');
+        $buttonCrawlerForm = $crawler->selectButton('Se connecter');
+        $form = $buttonCrawlerForm->form();
+        $this->client->submit($form, [
+            '_username' => 'User Test',
+            '_password' => 'user'
+        ]);
+        $this->client->request('GET', '/users');
+        static::assertEquals(302, $this->client->getResponse()->getStatusCode());
+    }
 
-    //List scenarii
-    // public function testListAction()
-    // {
-    //     $this->logIn(['ROLE_ADMIN']);
-    //     $crawler = $this->client->request('GET', 'http://p8-todolist/web');
-    //     //$this->client->followRedirect();
-    //     $this->assertContains("Créer une nouvelle tâche", $this->client->getResponse()->getContent());
-    // }
+    /**
+     * Test d'affichage de la page d'ajout d'un utilisateur par un administrateur ROLE_ADMIN
+     */
+    public function testCreateActionAsAdmin()
+    {
+        $crawler = $this->client->request('GET', '/login');
+        $buttonCrawlerForm = $crawler->selectButton('Se connecter');
+        $form = $buttonCrawlerForm->form();
+        $this->client->submit($form, [
+            '_username' => 'Mirko Venturi',
+            '_password' => 'Mirko87'
+        ]);
+        $this->client->request('GET', '/users/create');
+        static::assertEquals(200, $this->client->getResponse()->getStatusCode());
+    }
 
-    // public function testUserListError403()
-    // {
-    //     $this->logIn(['ROLE_USER']);
-    //     $crawler = $this->client->request('GET', 'http://p8-todolist/web/users');
-    //     $this->assertSame(403, $this->client->getResponse()->getStatusCode());
-    // }
+    /**
+     * Test d'affichage de la page d'ajout d'un utilisateur par un utilisateur ROLE_USER
+     */
+    public function testCreateActionAsUser()
+    {
+        $crawler = $this->client->request('GET', '/login');
+        $buttonCrawlerForm = $crawler->selectButton('Se connecter');
+        $form = $buttonCrawlerForm->form();
+        $this->client->submit($form, [
+            '_username' => 'user',
+            '_password' => 'user'
+        ]);
+        $this->client->request('GET', '/users/create');
+        static::assertEquals(302, $this->client->getResponse()->getStatusCode());
+    }
 
-    // //Create scenarii
-    // public function testCreateAction()
-    // {
-    //     $this->logIn(['ROLE_ADMIN']);
-    //     $crawler = $this->client->request('GET', 'http://p8-todolist/web/users/create');
-    //     $this->assertContains("Nom d'utilisateur", $this->client->getResponse()->getContent());
-    // }
+    /**
+     * Test d'ajout d'un utilisateur par un administrateur ROLE_AMIN
+     */
+    public function testCreateAction()
+    {
+        $crawler = $this->client->request('GET', '/login');
+        $buttonCrawlerForm = $crawler->selectButton('Se connecter');
+        $form = $buttonCrawlerForm->form();
+        $this->client->submit($form, [
+            '_username' => 'Mirko Venturi',
+            '_password' => 'Mirko87'
+        ]);
+        $crawler = $this->client->request('GET', '/users/create');
+        $buttonCrawlerAddUser = $crawler->selectButton('Ajouter');
+        $formUser = $buttonCrawlerAddUser->form();
+        $this->client->submit($formUser, [
+            'user[username]' => 'username'.rand(0, 10000),
+            'user[password][first]' => 'password',
+            'user[password][second]' => 'password',
+            'user[email]' => rand(0, 10000).'email@gmail.com',
+        ]);
+        static::assertEquals(302, $this->client->getResponse()->getStatusCode());
+    }
 
-    // public function testUserCreatePageError403()
-    // {
-    //     $this->logIn(['ROLE_USER']);
-    //     $crawler = $this->client->request('GET', 'http://p8-todolist/web/users/create');
-    //     $this->assertSame(403, $this->client->getResponse()->getStatusCode());
-    // }
+    /**
+     * Test de modification d'un utilisateur par un administrateur ROLE_ADMIN
+     */
+    public function testEditUserByAdmin()
+    {
+        $crawler = $this->client->request('GET', '/login');
+        $buttonCrawlerForm = $crawler->selectButton('Se connecter');
+        $form = $buttonCrawlerForm->form();
+        $this->client->submit($form, [
+            '_username' => 'Mirko Venturi',
+            '_password' => 'Mirko87'
+        ]);
+        $crawler = $this->client->request('GET', '/users/42/edit');
+        static::assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-    // // public function testUserCreatePageSendForm()
-    // // {
-    // //     $time = time();
-    // //     $this->logIn(['ROLE_ADMIN']);
-    // //     $crawler = $this->client->request('GET', 'http://p8-todolist/web/users/create');
-    // //     $form = $crawler->selectButton('Ajouter')->form();
-    // //     $form['user[username]'] = 'user_test_' . $time;
-    // //     $form['user[password][first]'] = 'password_test';
-    // //     $form['user[password][second]'] = 'password_test';
-    // //     $form['user[email]'] = 'user_test_' . $time . '@email.fr';
-    // //     $form['user[roles]'] = 'ROLE_USER';
-    // //     $this->client->submit($form);
-    // //     $this->client->followRedirect();
-    // //     $this->assertContains("a bien été ajouté", $this->client->getResponse()->getContent());
-    // // }
+        $form = $crawler->selectButton('Modifier')->form();
+        $form['user[username]'] = 'user';
+        $form['user[password][first]'] = 'userpassword';
+        $form['user[password][second]'] = 'userpassword';
+        $form['user[email]'] = 'test@test.com';
+        $this->client->submit($form);
+        $crawler = $this->client->followRedirect();
+        $this->assertSame(1, $crawler->filter('div.alert.alert-success:contains("modifié")')->count());
+    }
 
-    // //Edit scenarii
-    // public function testUserEditPageAccess()
-    // {
-    //     $this->logIn(['ROLE_ADMIN']);
-    //     $crawler = $this->client->request('GET', 'http://p8-todolist/web/users/1/edit');
-    //     $this->assertContains("Modifier", $this->client->getResponse()->getContent());
-    // }
+    /**
+     * Test de suppression d'un utilisateur par un user ROLE_ADMIN
+     */
+    public function testDeleteUserAction(): void
+    {
+        $crawler = $this->client->request('GET', '/login');
+        $buttonCrawlerForm = $crawler->selectButton('Se connecter');
+        $form = $buttonCrawlerForm->form();
+        $this->client->submit($form, [
+            '_username' => 'Mirko Venturi',
+            '_password' => 'Mirko87'
+        ]);
+        
+        $this->client->request('GET', '/users/32/delete');
 
-    // public function testUserEditPageError404()
-    // {
-    //     $this->logIn(['ROLE_USER']);
-    //     $crawler = $this->client->request('GET', 'http://p8-todolist/web/users/1/edit');
-    //     $this->assertSame(404, $this->client->getResponse()->getStatusCode());
-    // }
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 
-    // // public function testUserEditPageError404()
-    // // {
-    // //     $this->logIn(['ROLE_ADMIN']);
-    // //     $crawler = $this->client->request('GET', 'http://p8-todolist/web/users/99999/edit');
-    // //     $this->assertSame(404, $this->client->getResponse()->getStatusCode());
-    // // }
+        $crawler = $this->client->followRedirect();
 
-    // // public function testUserEditPageSendForm()
-    // // {
-    // //     $time = time();
-    // //     $this->logIn(['ROLE_ADMIN']);
-    // //     $crawler = $this->client->request('GET', 'http://p8-todolist/web/users/3/edit');
-    // //     $form = $crawler->selectButton('Modifier')->form();
-    // //     $form['user[username]'] = 'user_modif_' . $time;
-    // //     $form['user[password][first]'] = 'password_modif';
-    // //     $form['user[password][second]'] = 'password_modif';
-    // //     $form['user[email]'] = 'user_modif_' . $time . '@email.fr';
-    // //     $form['user[roles]'] = 'ROLE_USER';
-    // //     $this->client->submit($form);
-    // //     $this->client->followRedirect();
-    // //     $this->assertContains("a bien été modifié", $this->client->getResponse()->getContent());
-    // // }
-//}
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(1, $crawler->filter('div.alert-success')->count());
+    }
+
+    public function tearDown()
+    {
+        $this->client = null;
+    }
+}

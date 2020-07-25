@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for C:\wamp64\www\P8-ToDoList\src\AppBundle/Entity</title>
+  <title>Dashboard for C:\wamp64\www\P8-ToDoList\src\AppBundle/Security</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../.css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../.css/nv.d3.min.css" rel="stylesheet" type="text/css">
@@ -19,7 +19,7 @@
      <div class="col-md-12">
       <ol class="breadcrumb">
         <li><a href="../index.html">C:\wamp64\www\P8-ToDoList\src\AppBundle</a></li>
-        <li><a href="index.html">Entity</a></li>
+        <li><a href="index.html">Security</a></li>
         <li class="active">(Dashboard)</li>
 
       </ol>
@@ -112,7 +112,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="User.php.html#160"><abbr title="AppBundle\Entity\User::removeTask">removeTask</abbr></a></td><td class="text-right">80%</td></tr>
 
        </tbody>
       </table>
@@ -129,7 +128,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="User.php.html#160"><abbr title="AppBundle\Entity\User::removeTask">removeTask</abbr></a></td><td class="text-right">3</td></tr>
 
        </tbody>
       </table>
@@ -160,7 +158,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,1,1], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,1], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -178,7 +176,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,1,0,30], "Method Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,2], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -228,7 +226,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,15,"<a href=\"Task.php.html#13\">AppBundle\\Entity\\Task<\/a>"],[96.875,21,"<a href=\"User.php.html#19\">AppBundle\\Entity\\User<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[100,10,"<a href=\"UserVoter.php.html#9\">AppBundle\\Security\\UserVoter<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -252,7 +250,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[100,1,"<a href=\"Task.php.html#50\">AppBundle\\Entity\\Task::__construct<\/a>"],[100,1,"<a href=\"Task.php.html#56\">AppBundle\\Entity\\Task::getId<\/a>"],[100,1,"<a href=\"Task.php.html#61\">AppBundle\\Entity\\Task::getCreatedAt<\/a>"],[100,1,"<a href=\"Task.php.html#66\">AppBundle\\Entity\\Task::setCreatedAt<\/a>"],[100,1,"<a href=\"Task.php.html#71\">AppBundle\\Entity\\Task::getTitle<\/a>"],[100,1,"<a href=\"Task.php.html#76\">AppBundle\\Entity\\Task::setTitle<\/a>"],[100,1,"<a href=\"Task.php.html#81\">AppBundle\\Entity\\Task::getContent<\/a>"],[100,1,"<a href=\"Task.php.html#86\">AppBundle\\Entity\\Task::setContent<\/a>"],[100,2,"<a href=\"Task.php.html#94\">AppBundle\\Entity\\Task::getUser<\/a>"],[100,1,"<a href=\"Task.php.html#102\">AppBundle\\Entity\\Task::setUser<\/a>"],[100,1,"<a href=\"Task.php.html#109\">AppBundle\\Entity\\Task::isDone<\/a>"],[100,1,"<a href=\"Task.php.html#114\">AppBundle\\Entity\\Task::toggle<\/a>"],[100,1,"<a href=\"Task.php.html#122\">AppBundle\\Entity\\Task::getAnonUser<\/a>"],[100,1,"<a href=\"Task.php.html#136\">AppBundle\\Entity\\Task::setIsDone<\/a>"],[100,1,"<a href=\"User.php.html#56\">AppBundle\\Entity\\User::__construct<\/a>"],[100,1,"<a href=\"User.php.html#61\">AppBundle\\Entity\\User::getId<\/a>"],[100,1,"<a href=\"User.php.html#66\">AppBundle\\Entity\\User::getUsername<\/a>"],[100,1,"<a href=\"User.php.html#71\">AppBundle\\Entity\\User::setUsername<\/a>"],[100,1,"<a href=\"User.php.html#76\">AppBundle\\Entity\\User::getSalt<\/a>"],[100,1,"<a href=\"User.php.html#81\">AppBundle\\Entity\\User::getPassword<\/a>"],[100,1,"<a href=\"User.php.html#86\">AppBundle\\Entity\\User::setPassword<\/a>"],[100,1,"<a href=\"User.php.html#94\">AppBundle\\Entity\\User::getRoles<\/a>"],[100,1,"<a href=\"User.php.html#104\">AppBundle\\Entity\\User::setRoles<\/a>"],[100,1,"<a href=\"User.php.html#109\">AppBundle\\Entity\\User::getEmail<\/a>"],[100,1,"<a href=\"User.php.html#114\">AppBundle\\Entity\\User::setEmail<\/a>"],[100,1,"<a href=\"User.php.html#119\">AppBundle\\Entity\\User::eraseCredentials<\/a>"],[100,1,"<a href=\"User.php.html#126\">AppBundle\\Entity\\User::isAdmin<\/a>"],[100,2,"<a href=\"User.php.html#134\">AppBundle\\Entity\\User::isAnon<\/a>"],[100,1,"<a href=\"User.php.html#145\">AppBundle\\Entity\\User::getTasks<\/a>"],[100,2,"<a href=\"User.php.html#150\">AppBundle\\Entity\\User::addTask<\/a>"],[80,3,"<a href=\"User.php.html#160\">AppBundle\\Entity\\User::removeTask<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([[100,3,"<a href=\"UserVoter.php.html#11\">AppBundle\\Security\\UserVoter::supports<\/a>"],[100,7,"<a href=\"UserVoter.php.html#26\">AppBundle\\Security\\UserVoter::voteOnAttribute<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);
