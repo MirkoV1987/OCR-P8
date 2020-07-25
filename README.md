@@ -3,10 +3,10 @@
 Projet 8 de mon parcours de Développeur d'applications - PHP/SYMFONY chez OpenClassrooms. Amélioration d'une application existante de ToDo & Co. Utilisation de Symfony 3, de PHPUnit pour les tests unitaires, de Behat pour les tests fonctionnels et de Blackfire pour l'audit de performance.
 
 <b>Environnement utilisé durant le développement</b>
-<li>Symfony 3.1.10</li>
-<li>PHPUnit</li>
+<li>Symfony 3.4.43</li>
+<li>PHPUnit 6.5.14</li>
 <li>Behat</li>
-<li>Blackfire</li>
+<li>Blackfire.io</li>
 <li>Composer 1.2.7</li>
 <li>WampServer 3.1.9</li>
 <li>Apache 2.4.39</li>
