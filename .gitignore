@@ -19,3 +19,7 @@
 /config/.platform.app.yml
 /behat.yml
 /.blackfire.yaml
+/.env
+/.env.local.php
+/p8.code-workspace
+/web/*

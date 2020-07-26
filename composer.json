@@ -36,7 +36,8 @@
         "behat/mink-selenium2-driver": "^1.4",
         "blackfire/php-sdk": "^1.23",
         "behat/mink-extension": "^2.3",
-        "behat/mink-goutte-driver": "^1.2"
+        "behat/mink-goutte-driver": "^1.2",
+        "symfony/flex": "^1.9"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
