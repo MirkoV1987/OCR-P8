@@ -2,6 +2,9 @@
     "php": {
         "version": "7.2"
     },
+    "sensio/generator-bundle": {
+        "version": "v3.1.7"
+    },
     "symfony/flex": {
         "version": "1.0",
         "recipe": {
@@ -13,5 +16,8 @@
         "files": [
             "./.env"
         ]
+    },
+    "symfony/profiler-pack": {
+        "version": "v1.0.4"
     }
 }

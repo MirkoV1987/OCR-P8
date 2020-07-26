@@ -34,6 +34,7 @@ framework:
 
 # Twig Configuration
 twig:
+    #exception_controller: AppBundle:Exception:showAction
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form_themes: ['bootstrap_3_layout.html.twig']
